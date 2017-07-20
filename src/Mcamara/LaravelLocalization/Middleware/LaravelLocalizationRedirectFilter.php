@@ -41,6 +41,12 @@ class LaravelLocalizationRedirectFilter extends LaravelLocalizationMiddlewareBas
                 // If the current url does not contain any locale
                 // The system redirect the user to the very same url "localized"
                 // we use the current locale to redirect him
+            
+                $targetLocale = session('locale');
+                if(!isset($locales[$targetLocale])){
+                    $targetLocale = config('app.fallback_locale');
+                }
+
                 $redirection = app('laravellocalization')->getLocalizedURL(session('locale'), $request->fullUrl());
             }
 
